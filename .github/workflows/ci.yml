@@ -15,8 +15,8 @@ jobs:
 
       - name: Build
         run: |
-          cmake -G "Visual Studio 15 2017" -A $WINHOST -S . -B bin/windows-$WINHOST/$TARGET
-          cmake --build bin/windows-$WINHOST/$TARGET
+          cmake -G "Visual Studio 15 2017" -A "$WINHOST" -S . -B "bin/windows-$WINHOST/$TARGET"
+          cmake --build "bin/windows-$WINHOST/$TARGET"
         env:
           WINHOST: x64 
           TARGET: x86_64-linux-gnu
