@@ -7,9 +7,6 @@ jobs:
     name: Windows
     runs-on: windows-latest
     timeout-minutes: 30
-    env:
-      WINHOST: x64 
-      TARGET: x86_64-linux-gnu
     steps:
       - uses: actions/checkout@v2
 
@@ -18,5 +15,8 @@ jobs:
 
       - name: Build
         run: |
-          cmake -G "Visual Studio 15 2017" -A ${WINHOST} -S . -B bin/windows-${WINHOST}/${TARGET}
-          cmake --build bin/windows-${WINHOST}/${TARGET}
+          cmake -G "Visual Studio 15 2017" -A $WINHOST -S . -B bin/windows-$WINHOST/$TARGET
+          cmake --build bin/windows-$WINHOST/$TARGET
+        env:
+          WINHOST: x64 
+          TARGET: x86_64-linux-gnu
