@@ -50,7 +50,8 @@ jobs:
           CXXFLAGS="$CXXFLAGS $OPT"
           export CFLAGS CXXFLAGS
           autoreconf -i
-          ./configure CC=$CC CXX=$CXX CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --build=$BUILD --host=$HOST             - name: Build               run: |                make -j32
+          ./configure CC=$CC CXX=$CXX CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --build=$BUILD --host=$HOST
+          make -j32
           sudo bash -c 'echo core.%p.%p > /proc/sys/kernel/core_pattern'
           ulimit -c unlimited
           if [ $HOST = 'x86_64-linux-gnu' ]; then make check -j32; fi
