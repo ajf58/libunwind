@@ -25,50 +25,50 @@ jobs:
   linux:
     name: Linux
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - HOST: x86_64-linux-gnu
+            OPT: -O0
+          - HOST: x86-linux-gnu
+            OPT: -O0
+          - HOST: arm-linux-gnueabihf
+            OPT: -O0
+          - HOST: aarch64-linux-gnu
+            OPT: -O0
+          - HOST: mipsel-linux-gnu
+            OPT: -O0
+          - HOST: powerpc64-linux-gnu
+            OPT: -O0
+          - HOST: x86_64-linux-gnu
+            OPT: -O2
+          - HOST: x86-linux-gnu
+            OPT: -O2
+          - HOST: arm-linux-gnueabihf
+            OPT: -O2
+          - HOST: aarch64-linux-gnu
+            OPT: -O2
+          - HOST: mipsel-linux-gnu
+            OPT: -O2
+          - HOST: powerpc64-linux-gnu
+            OPT: -O2
+          - HOST: x86_64-linux-gnu
+            OPT: -O3
+          - HOST: x86-linux-gnu
+            OPT: -O3
+          - HOST: arm-linux-gnueabihf
+            OPT: -O3
+          - HOST: aarch64-linux-gnu
+            OPT: -O3
+          - HOST: mipsel-linux-gnu
+            OPT: -O3
+          - HOST: powerpc64-linux-gnu
+            OPT: -O3
 
     steps:
       - uses: actions/checkout@v2 
 
       - name: Build
-        strategy:
-          matrix:
-            include:
-              - HOST: x86_64-linux-gnu
-                OPT: -O0
-              - HOST: x86-linux-gnu
-                OPT: -O0
-              - HOST: arm-linux-gnueabihf
-                OPT: -O0
-              - HOST: aarch64-linux-gnu
-                OPT: -O0
-              - HOST: mipsel-linux-gnu
-                OPT: -O0
-              - HOST: powerpc64-linux-gnu
-                OPT: -O0
-              - HOST: x86_64-linux-gnu
-                OPT: -O2
-              - HOST: x86-linux-gnu
-                OPT: -O2
-              - HOST: arm-linux-gnueabihf
-                OPT: -O2
-              - HOST: aarch64-linux-gnu
-                OPT: -O2
-              - HOST: mipsel-linux-gnu
-                OPT: -O2
-              - HOST: powerpc64-linux-gnu
-                OPT: -O2
-              - HOST: x86_64-linux-gnu
-                OPT: -O3
-              - HOST: x86-linux-gnu
-                OPT: -O3
-              - HOST: arm-linux-gnueabihf
-                OPT: -O3
-              - HOST: aarch64-linux-gnu
-                OPT: -O3
-              - HOST: mipsel-linux-gnu
-                OPT: -O3
-              - HOST: powerpc64-linux-gnu
-                OPT: -O3
         env:
           HOST: ${{ matrix.HOST }}
           OPT: ${{ matrix.OPT }}
