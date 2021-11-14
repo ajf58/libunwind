@@ -30,6 +30,48 @@ jobs:
       - uses: actions/checkout@v2 
 
       - name: Build
+        strategy:
+          matrix:
+            include:
+              - HOST: x86_64-linux-gnu
+                OPT: -O0
+              - HOST: x86-linux-gnu
+                OPT: -O0
+              - HOST: arm-linux-gnueabihf
+                OPT: -O0
+              - HOST: aarch64-linux-gnu
+                OPT: -O0
+              - HOST: mipsel-linux-gnu
+                OPT: -O0
+              - HOST: powerpc64-linux-gnu
+                OPT: -O0
+              - HOST: x86_64-linux-gnu
+                OPT: -O2
+              - HOST: x86-linux-gnu
+                OPT: -O2
+              - HOST: arm-linux-gnueabihf
+                OPT: -O2
+              - HOST: aarch64-linux-gnu
+                OPT: -O2
+              - HOST: mipsel-linux-gnu
+                OPT: -O2
+              - HOST: powerpc64-linux-gnu
+                OPT: -O2
+              - HOST: x86_64-linux-gnu
+                OPT: -O3
+              - HOST: x86-linux-gnu
+                OPT: -O3
+              - HOST: arm-linux-gnueabihf
+                OPT: -O3
+              - HOST: aarch64-linux-gnu
+                OPT: -O3
+              - HOST: mipsel-linux-gnu
+                OPT: -O3
+              - HOST: powerpc64-linux-gnu
+                OPT: -O3
+        env:
+          HOST: ${{ matrix.HOST }}
+          OPT: ${{ matrix.OPT }}
         run: |
           BUILD=x86_64-linux-gnu
           export BUILD
@@ -50,11 +92,8 @@ jobs:
           CXXFLAGS="$CXXFLAGS $OPT"
           export CFLAGS CXXFLAGS
           autoreconf -i
-          ./configure CC=$CC CXX=$CXX CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --build=$BUILD --host=$HOST
+          ./configure CC=$CC CXX=$CXX CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" --build=$BUILD --HOST: $HOST
           make -j32
           sudo bash -c 'echo core.%p.%p > /proc/sys/kernel/core_pattern'
           ulimit -c unlimited
           if [ $HOST = 'x86_64-linux-gnu' ]; then make check -j32; fi
-        env:
-          HOST: x86_64-linux-gnu
-          OPT: -O3
