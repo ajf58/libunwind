@@ -99,7 +99,7 @@ jobs:
           make -j
           sudo bash -c 'echo core.%p.%p > /proc/sys/kernel/core_pattern'
           ulimit -c unlimited
-          if [ $HOST = 'x86_64-linux-gnu' ]; then make check -j; fi
+          if [ $HOST = 'x86_64-linux-gnu' ]; then make check -j || cat tests/test-suite.log; fi
 
       - uses: actions/upload-artifact@v2
         with:
