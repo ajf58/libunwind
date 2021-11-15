@@ -71,12 +71,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2 
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build-logs
-          path: |
-            **/*.log
-
       - name: Build
         env:
           HOST: ${{ matrix.HOST }}
@@ -106,3 +100,9 @@ jobs:
           sudo bash -c 'echo core.%p.%p > /proc/sys/kernel/core_pattern'
           ulimit -c unlimited
           if [ $HOST = 'x86_64-linux-gnu' ]; then make check -j; fi
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-logs
+          path: |
+            **/*.log
