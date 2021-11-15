@@ -71,6 +71,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2 
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-logs
+          path: |
+            **/*.log
+
       - name: Build
         env:
           HOST: ${{ matrix.HOST }}
