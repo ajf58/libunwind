@@ -103,6 +103,6 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-logs
+          name: build-logs ${{ matrix.HOST }} ${{ matrix.OPT }}
           path: |
             **/*.log
